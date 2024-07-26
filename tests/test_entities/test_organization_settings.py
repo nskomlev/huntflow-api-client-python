@@ -34,7 +34,6 @@ INTERVIEW_TYPES_RESPONSE: Dict[str, Any] = {
             "id": 20,
             "name": "Phone interview",
             "account": 42,
-            "removed": "2020-01-01T00:00:00+03:00",
             "order": 0,
             "type": "user",
         },
