@@ -10,7 +10,6 @@ class InterviewType(BaseModel):
     id: int = Field(..., description="Interview type ID", examples=[20])
     name: str = Field(..., description="Interview type name", examples=["Phone interview"])
     account: int = Field(..., description="Organization ID", examples=[42])
-    removed: Optional[datetime] = Field(None, description="Date and time of removing")
     order: int = Field(..., description="Order number")
     type: InterviewTypeEnum = Field(
         ...,
