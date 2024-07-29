@@ -171,3 +171,8 @@ class UserControlTaskStatus(str, Enum):
     PENDING = "PENDING"
     SUCCESS = "SUCCESS"
     FAILED = "FAILED"
+
+
+class InterviewType(str, Enum):
+    USER = "user"
+    INTERVIEW = "interview"
