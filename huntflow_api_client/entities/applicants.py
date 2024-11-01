@@ -46,7 +46,7 @@ class Applicant(BaseEntity, ListEntityMixin, CreateEntityMixin, GetEntityMixin):
         if status:
             params["status"] = status
         if vacancy_id:
-            params["vacancy_id"] = vacancy_id
+            params["vacancy"] = vacancy_id
         if agreement_state:
             params["agreement_state"] = agreement_state.value
         response = await self._api.request(
