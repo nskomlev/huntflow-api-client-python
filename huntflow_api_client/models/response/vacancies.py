@@ -138,6 +138,13 @@ class LastVacancyFrameResponse(BaseModel):
         description="How many working days before deadline",
     )
 
+class VacancyLog(BaseModel):
+    id: PositiveInt = Field(..., description="Vacancy frame ID")
+    account_vacancy_close_reason: Optional[PositiveInt] = Field(
+        None,
+        description="Vacancy close reason ID",
+    )
+    #TODO other fields
 
 class VacancyFrame(LastVacancyFrameResponse):
     next_id: Optional[int] = Field(None, description="The next frame ID")
@@ -147,6 +154,8 @@ class VacancyQuotaList(PaginatedResponse):
     total_items: Optional[int] = Field(None, description="Total number of items")
     items: List[VacancyQuotaItem]
 
+class VacancyLogsListResponse(BaseModel):
+    items: List[VacancyLog]
 
 class VacancyFramesListResponse(BaseModel):
     items: List[VacancyFrame]
