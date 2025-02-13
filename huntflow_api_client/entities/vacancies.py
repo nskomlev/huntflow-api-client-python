@@ -14,6 +14,7 @@ from huntflow_api_client.models.response.vacancies import (
     AdditionalFieldsSchemaResponse,
     LastVacancyFrameResponse,
     VacancyCreateResponse,
+    VacancyLogsListResponse,
     VacancyFrameQuotasResponse,
     VacancyFramesListResponse,
     VacancyListResponse,
@@ -197,6 +198,25 @@ class Vacancy(BaseEntity, CRUDEntityMixin):
             f"/accounts/{account_id}/vacancies/{vacancy_id}/members/{account_member_id}",
         )
 
+    async def get_logs(
+        self,
+        account_id: int,
+        vacancy_id: int,
+    ) -> VacancyLogsListResponse:
+        """
+        API method reference
+            https://api.huntflow.ai/v2/docs#get-/accounts/-account_id-/vacancies/-vacancy_id-/logs
+
+        :param account_id: Organization ID
+        :param vacancy_id: Vacancy ID
+        :return: List of logs
+        """
+        response = await self._api.request(
+            "GET",
+            f"/accounts/{account_id}/vacancies/{vacancy_id}/logs",
+        )
+        return VacancyLogsListResponse.model_validate(response.json())
+    
     async def get_frames(
         self,
         account_id: int,

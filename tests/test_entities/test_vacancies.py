@@ -19,6 +19,7 @@ from huntflow_api_client.models.response.vacancies import (
     AdditionalFieldsSchemaResponse,
     LastVacancyFrameResponse,
     VacancyCreateResponse,
+    VacancyLogsListResponse,
     VacancyFrameQuotasResponse,
     VacancyFramesListResponse,
     VacancyListResponse,
@@ -224,6 +225,15 @@ LAST_VACANCY_FRAME_RESPONSE: Dict[str, Any] = {
     "hired_applicants": [1, 2, 45],
     "workdays_in_work": 10,
     "workdays_before_deadline": 12,
+}
+VACANCY_LOG_LIST_RESPONSE: Dict[str, Any] = {
+    "items": [
+        {
+            "id": 3,
+            "account_vacancy_close_reason": 8808,
+            #TODO
+        },
+    ],
 }
 VACANCY_QUOTAS_IN_FRAME_RESPONSE: Dict[str, Any] = {
     "items": [
@@ -445,6 +455,18 @@ async def test_vacancy_frames_list(
     response = await vacancies.get_frames(ACCOUNT_ID, VACANCY_ID)
     assert response == VacancyFramesListResponse(**VACANCY_FRAME_LIST_RESPONSE)
 
+async def test_vacancy_logs_list(
+    httpx_mock: HTTPXMock,
+    token_proxy: HuntflowTokenProxy,
+) -> None:
+    httpx_mock.add_response(
+        url=f"{VERSIONED_BASE_URL}/accounts/{ACCOUNT_ID}/vacancies/{VACANCY_ID}/logs",
+        json=VACANCY_LOG_LIST_RESPONSE,
+    )
+    api_client = HuntflowAPI(BASE_URL, token_proxy=token_proxy)
+    logs = Vacancy(api_client)
+    response = await logs.get_logs(ACCOUNT_ID, VACANCY_ID)
+    assert response == VacancyLogsListResponse(**VACANCY_LOG_LIST_RESPONSE)
 
 async def test_get_last_vacancy_frame(
     httpx_mock: HTTPXMock,
